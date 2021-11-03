@@ -15,7 +15,7 @@ ARG build
 ARG version
 
 RUN CGO_ENABLED=0 go build -ldflags "-w -s -X github.com/k8sdeploy/tygon/app.version=$(version) -X github.com/k8sdeploy/tygon/app.build=$(build)" -o ./bin/tygon -v ./cmd/tygon.go
-RUN cp ./bin/agent-service /
+RUN cp ./bin/tygon /
 
 # Runner
 FROM alpine AS Runner

@@ -5,7 +5,7 @@ metadata:
   name: tygon
   namespace: k8sdeploy
   labels:
-    name: agent-service
+    name: tygon
 spec:
   selector:
     matchLabels:
