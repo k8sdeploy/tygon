@@ -1,0 +1,78 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tygon
+  namespace: k8sdeploy
+  labels:
+    name: agent-service
+spec:
+  selector:
+    matchLabels:
+      app: tygon
+  template:
+    metadata:
+      labels:
+        app: tygon
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - name: tygon
+          image: ghcr.io/k8sdeploy/tygon:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          env:
+            - name: DEVELOPMENT
+              value: "false"
+            - name: VAULT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: tygon-vault-token
+                  key: token
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tygon-service
+  namespace: k8sdeploy
+  labels:
+    app: tygon
+spec:
+  ports:
+    - port: 3000
+      protocol: TCP
+      targetPort: 3000
+  selector:
+    app: tygon
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: k8sdeploy
+  name: tygon-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    certmanager.k8s.io/cluster-issuer: acme-prod
+  labels:
+    app: tyghon-service
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - hooks.k8sdeploy.dev
+      secretName: k8sdeploy-dev-tls
+  rules:
+    - host: hooks.k8sdeploy.dev
+      http:
+        paths:
+          - path: /(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: tygon-service
+                port:
+                  number: 3000
