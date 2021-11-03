@@ -35,6 +35,8 @@ func (t Tygon) ParsePayload(w http.ResponseWriter, r *http.Request) {
 			jsonError(w, "Ping event failed", err)
 			return
 		}
+		w.WriteHeader(http.StatusOK)
+		return
 	}
 
 	w.WriteHeader(http.StatusOK)

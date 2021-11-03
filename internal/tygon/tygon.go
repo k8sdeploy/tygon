@@ -25,5 +25,8 @@ func (t *Tygon) PingEventTriggered() error {
 		bugLog.Debugf("failed to decode ping config: %+v", err)
 		return err
 	}
+
+	bugLog.Infof("Parsed the ping event: %+v", t.PingEvent)
+
 	return nil
 }
