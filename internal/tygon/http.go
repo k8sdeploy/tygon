@@ -30,4 +30,10 @@ func (t Tygon) ParsePayload(w http.ResponseWriter, r *http.Request) {
 
   w.WriteHeader(http.StatusOK)
 	bugLog.Infof("Request: %+v", a)
+
+  for name, values := range r.Header {
+    for _, value := range values {
+      bugLog.Infof("Header: %s: %s", name, value)
+    }
+  }
 }
