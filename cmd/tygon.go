@@ -38,6 +38,9 @@ func route(cfg config.Config) error {
 
 	r.Route("/", func(r chi.Router) {
 		r.Post("/", tygon.NewTygon(&cfg).ParsePayload)
+
+    // probe from something in the cluster
+    r.Get("/", probe.HTTP)
 	})
 
 	r.Route("/probe", func(r chi.Router) {
