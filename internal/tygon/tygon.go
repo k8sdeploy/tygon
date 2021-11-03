@@ -9,7 +9,7 @@ import (
 
 type Tygon struct {
 	Config    *config.Config
-	PingEvent *github.Hook
+	PingEvent github.Hook
 }
 
 func NewTygon(cfg *config.Config) *Tygon {
