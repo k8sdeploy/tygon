@@ -6,8 +6,10 @@ require (
 	github.com/bugfixes/go-bugfixes v0.7.1
 	github.com/caarlos0/env/v6 v6.7.2
 	github.com/go-chi/chi/v5 v5.0.5
+	github.com/google/go-github/v39 v39.2.0
 	github.com/hashicorp/vault/api v1.3.0
 	github.com/keloran/go-probe v0.0.0-20210417224119-539dae99a65e
+	github.com/mitchellh/mapstructure v1.4.2
 )
 
 require (
@@ -18,6 +20,7 @@ require (
 	github.com/go-logfmt/logfmt v0.5.1 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/golang/snappy v0.0.4 // indirect
+	github.com/google/go-querystring v1.1.0 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-cleanhttp v0.5.1 // indirect
 	github.com/hashicorp/go-hclog v0.16.2 // indirect
@@ -41,13 +44,12 @@ require (
 	github.com/mitchellh/copystructure v1.0.0 // indirect
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	github.com/mitchellh/go-testing-interface v1.0.0 // indirect
-	github.com/mitchellh/mapstructure v1.4.2 // indirect
 	github.com/mitchellh/reflectwalk v1.0.0 // indirect
 	github.com/oklog/run v1.0.0 // indirect
 	github.com/pierrec/lz4 v2.5.2+incompatible // indirect
 	github.com/ryanuber/go-glob v1.0.0 // indirect
 	go.uber.org/atomic v1.9.0 // indirect
-	golang.org/x/crypto v0.0.0-20210711020723-a769d52b0f97 // indirect
+	golang.org/x/crypto v0.0.0-20210817164053-32db794688a5 // indirect
 	golang.org/x/net v0.0.0-20210226172049-e18ecbb05110 // indirect
 	golang.org/x/sys v0.0.0-20210630005230-0f9fa26af87c // indirect
 	golang.org/x/text v0.3.3 // indirect
