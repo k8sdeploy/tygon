@@ -1,10 +1,10 @@
 package tygon
 
 import (
-  "encoding/json"
-  "net/http"
+	"encoding/json"
+	"net/http"
 
-  bugLog "github.com/bugfixes/go-bugfixes/logs"
+	bugLog "github.com/bugfixes/go-bugfixes/logs"
 )
 
 func jsonError(w http.ResponseWriter, msg string, errs error) {
@@ -21,16 +21,16 @@ func jsonError(w http.ResponseWriter, msg string, errs error) {
 }
 
 func (t Tygon) ParsePayload(w http.ResponseWriter, r *http.Request) {
-  var unknownPayload interface{}
+	var unknownPayload interface{}
 	if err := json.NewDecoder(r.Body).Decode(&unknownPayload); err != nil {
 		jsonError(w, "Invalid payload", err)
 		return
 	}
 
-  // if ok, err := t.validateSecret(r.Header.Get("X-Hub-Signature-256"), body); !ok {
-  //   jsonError(w, "Invalid secret", err)
-  //   return
-  // }
+	// if ok, err := t.validateSecret(r.Header.Get("X-Hub-Signature-256"), body); !ok {
+	//   jsonError(w, "Invalid secret", err)
+	//   return
+	// }
 
 	// test different types
 	if ok, parsedPayload := isPingEvent(unknownPayload); ok {
@@ -40,18 +40,18 @@ func (t Tygon) ParsePayload(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-  if ok, parsedPayload := isPackageEvent(unknownPayload); ok {
-    if err := t.handlePackageEvent(parsedPayload); err != nil {
-      jsonError(w, "handlePackageEvent failed", err)
-      return
-    }
-  }
+	if ok, parsedPayload := isPackageEvent(unknownPayload); ok {
+		if err := t.handlePackageEvent(parsedPayload); err != nil {
+			jsonError(w, "handlePackageEvent failed", err)
+			return
+		}
+	}
 
-  for name, values := range r.Header {
-    for _, value := range values {
-      bugLog.Infof("Header: %s: %s", name, value)
-    }
-  }
+	for name, values := range r.Header {
+		for _, value := range values {
+			bugLog.Infof("Header: %s: %s", name, value)
+		}
+	}
 
 	w.WriteHeader(http.StatusOK)
 	bugLog.Infof("Beep")
