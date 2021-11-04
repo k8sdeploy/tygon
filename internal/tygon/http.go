@@ -5,8 +5,7 @@ import (
 	"net/http"
 
 	bugLog "github.com/bugfixes/go-bugfixes/logs"
-  "github.com/google/go-github/v39/github"
-  "github.com/mitchellh/mapstructure"
+	"github.com/google/go-github/v39/github"
 )
 
 func jsonError(w http.ResponseWriter, msg string, errs error) {
@@ -36,11 +35,11 @@ func (t Tygon) ParsePayload(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusOK)
-  var unknownPayload interface{}
-  if err := json.NewDecoder(r.Body).Decode(&unknownPayload); err != nil {
-    jsonError(w, "unknown payload", err)
-    return
-  }
+	var unknownPayload interface{}
+	if err := json.NewDecoder(r.Body).Decode(&unknownPayload); err != nil {
+		jsonError(w, "unknown payload", err)
+		return
+	}
 	bugLog.Infof("Request: %+v", unknownPayload)
 	for name, values := range r.Header {
 		for _, value := range values {
