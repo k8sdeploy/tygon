@@ -28,7 +28,7 @@ func isPackageEvent(payload interface{}) (bool, *github.PackageEvent) {
 	pe := github.PackageEvent{}
 
 	if err := mapstructure.Decode(payload, &pe); err == nil {
-		if pe.GetAction() != "" {
+		if pe.Package.Name != nil && *pe.Package.Name != "" {
 			return true, &pe
 		}
 	}
