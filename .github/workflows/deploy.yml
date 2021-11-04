@@ -47,6 +47,9 @@ jobs:
         with:
           context: .
           builder: ${{ steps.buildx.outputs.name }}
+          build-args: |
+            version={{version}}
+            build=${{ github.sha }}
           platforms: linux/arm64
           file: ./k8s/Dockerfile
           tags: ${{ steps.meta.outputs.tags }}

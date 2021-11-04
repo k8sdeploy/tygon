@@ -18,10 +18,10 @@ func NewTygon(cfg *config.Config) *Tygon {
 	}
 }
 
-func (t *Tygon) PingEventTriggered() error {
+func (t *Tygon) PingEventTriggered(p *github.Hook) error {
 	pingConfig := PingEventConfig{}
 
-	if err := mapstructure.Decode(t.PingEvent.Config, &pingConfig); err != nil {
+	if err := mapstructure.Decode(p.Config, &pingConfig); err != nil {
 		bugLog.Debugf("failed to decode ping config: %+v", err)
 		return err
 	}
