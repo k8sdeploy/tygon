@@ -23,3 +23,15 @@ func isPingEvent(payload interface{}) (bool, *github.PingEvent) {
 
 	return false, nil
 }
+
+func isPackageEvent(payload interface{}) (bool, *github.PackageEvent) {
+  pe := github.PackageEvent{}
+
+  if err := mapstructure.Decode(payload, &pe); err == nil {
+    if pe.GetAction() != "" {
+      return true, &pe
+    }
+  }
+
+  return false, nil
+}
