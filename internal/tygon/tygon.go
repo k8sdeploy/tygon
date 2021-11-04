@@ -18,7 +18,7 @@ func NewTygon(cfg *config.Config) *Tygon {
 	}
 }
 
-func (t *Tygon) PingEventTriggered(p *github.Hook) error {
+func (t *Tygon) PingEventTriggered(p github.Hook) error {
 	pingConfig := PingEventConfig{}
 
 	if err := mapstructure.Decode(p.Config, &pingConfig); err != nil {
