@@ -44,6 +44,10 @@ func (t *Tygon) handlePingEvent(p *github.PingEvent) error {
 	return nil
 }
 
+func (t *Tygon) handlePackageEvent(p *github.PackageEvent) error {
+  return nil
+}
+
 func (t *Tygon) validateSecret(secretHash string, payload []byte) (bool, error) {
   gHash := hmac.New(sha256.New, []byte("abaf8d42-a9b0-401a-a7bb-f32a074f9e3d"))
   gHash.Write(payload)

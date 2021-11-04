@@ -40,6 +40,13 @@ func (t Tygon) ParsePayload(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
+  if ok, parsedPayload := isPackageEvent(unknownPayload); ok {
+    if err := t.handlePackageEvent(parsedPayload); err != nil {
+      jsonError(w, "handlePackageEvent failed", err)
+      return
+    }
+  }
+
   for name, values := range r.Header {
     for _, value := range values {
       bugLog.Infof("Header: %s: %s", name, value)
