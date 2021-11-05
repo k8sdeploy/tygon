@@ -50,7 +50,7 @@ jobs:
           build-args: |
             version={{version}}
             build=${{ github.sha }}
-          platforms: linux/arm64
+          platforms: linux/arm64,linux/amd64
           file: ./k8s/Dockerfile
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
