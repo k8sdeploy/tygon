@@ -1,28 +1,40 @@
 package tygon
 
 import (
+	"context"
+	"strings"
+
 	bugLog "github.com/bugfixes/go-bugfixes/logs"
 	"github.com/google/go-github/v39/github"
 	"github.com/k8sdeploy/tygon/internal/config"
 	"github.com/mitchellh/mapstructure"
 )
 
-type Tygon struct {
-	Config      *config.Config
-	EventConfig *EventConfig
+type Account struct {
+	Name string
+	ID   int
 }
 
-// const GithubOrgs = "https://api.github.com/orgs/"
+type Tygon struct {
+	Config      *config.Config
+	Context     context.Context
+	EventConfig *EventConfig
+	Account     *Account
+}
 
-// func getOrg(org string) string {
-// 	stripedStart := strings.Trim(org, GithubOrgs)
-// 	split := strings.Split(stripedStart, "/")
-// 	return strings.ToLower(split[0])
-// }
+const GithubOrgs = "https://api.github.com/orgs/"
+
+//nolint:staticcheck
+func getOrg(org string) string {
+	stripedStart := strings.Trim(org, GithubOrgs)
+	split := strings.Split(stripedStart, "/")
+	return strings.ToLower(split[0])
+}
 
 func NewTygon(cfg *config.Config) *Tygon {
 	return &Tygon{
-		Config: cfg,
+		Config:  cfg,
+		Context: context.Background(),
 	}
 }
 
@@ -31,15 +43,23 @@ func (t *Tygon) handlePingEvent(p *github.PingEvent) error {
 		return bugLog.Error(err)
 	}
 
-	// org := getOrg(*p.Hook.URL)
-	// fmt.Sprintf(org)
-
-	// https://api.github.com/orgs/BugFixes/hooks/326833658
+	org := getOrg(*p.Hook.URL)
+	if err := t.associateAccountWithOrganization(org); err != nil {
+		return bugLog.Errorf("failed to associate the ping: %+v", err)
+	}
 
 	return nil
 }
 
 func (t *Tygon) handlePackageEvent(p *github.PackageEvent) error {
+	return nil
+}
+
+func (t *Tygon) handlePullRequestEvent(p *github.PullRequestEvent) error {
+	return nil
+}
+
+func (t *Tygon) handleReleaseEvent(p *github.ReleaseEvent) error {
 	return nil
 }
 
