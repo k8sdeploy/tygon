@@ -52,28 +52,28 @@ func (t *Tygon) handlePingEvent(p *github.PingEvent) error {
 }
 
 func (t *Tygon) handlePackageEvent(p *github.PackageEvent) error {
-  org := getOrg(*p.Org.URL)
-  if err := t.associateAccountWithOrganization(org); err != nil {
-    return bugLog.Errorf("failed to associate the ping: %+v", err)
-  }
+	org := getOrg(*p.Org.URL)
+	if err := t.associateAccountWithOrganization(org); err != nil {
+		return bugLog.Errorf("failed to associate the ping: %+v", err)
+	}
 
 	return nil
 }
 
 func (t *Tygon) handlePullRequestEvent(p *github.PullRequestEvent) error {
-  org := getOrg(*p.Organization.URL)
-  if err := t.associateAccountWithOrganization(org); err != nil {
-    return bugLog.Errorf("failed to associate the ping: %+v", err)
-  }
+	org := getOrg(*p.Organization.URL)
+	if err := t.associateAccountWithOrganization(org); err != nil {
+		return bugLog.Errorf("failed to associate the ping: %+v", err)
+	}
 
 	return nil
 }
 
 func (t *Tygon) handleReleaseEvent(p *github.ReleaseEvent) error {
-  org := getOrg(*p.Repo.URL)
-  if err := t.associateAccountWithOrganization(org); err != nil {
-    return bugLog.Errorf("failed to associate the ping: %+v", err)
-  }
+	org := getOrg(*p.Repo.URL)
+	if err := t.associateAccountWithOrganization(org); err != nil {
+		return bugLog.Errorf("failed to associate the ping: %+v", err)
+	}
 	return nil
 }
 
