@@ -19,7 +19,7 @@ spec:
         - name: regcred
       containers:
         - name: tygon
-          image: ghcr.io/k8sdeploy/tygon:0.2.3
+          image: ghcr.io/k8sdeploy/tygon:0.3.2
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
