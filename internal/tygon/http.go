@@ -65,12 +65,12 @@ func (t Tygon) ParsePayload(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	for name, values := range r.Header {
-		for _, value := range values {
-			bugLog.Infof("Header: %s: %s", name, value)
-		}
-	}
+	// for name, values := range r.Header {
+	// 	for _, value := range values {
+	// 		bugLog.Infof("Header: %s: %s", name, value)
+	// 	}
+	// }
 
 	w.WriteHeader(http.StatusOK)
-	bugLog.Infof("Beep")
+	bugLog.Infof("\n-------------------\nPayload: %+v", unknownPayload)
 }
