@@ -1,0 +1,28 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: k8sdeploy
+  name: tygon-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    cert-manager.io/cluster-issuer: acme-prod
+  labels:
+    app: tygon
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - k8sdeploy.hooks.k8sdeploy.dev
+      secretName: k8sdeploy-tygon-tls
+  rules:
+    - host: k8sdeploy.hooks.k8sdeploy.dev
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: tygon-service
+                port:
+                  number: 3000
