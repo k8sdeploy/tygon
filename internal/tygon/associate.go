@@ -1,6 +1,7 @@
 package tygon
 
 import (
+	"errors"
 	"fmt"
 
 	bugLog "github.com/bugfixes/go-bugfixes/logs"
@@ -23,7 +24,9 @@ func (t *Tygon) getConnection() (*pgx.Conn, error) {
 	return conn, nil
 }
 
-func (t *Tygon) associateAccountWithOrganization(orgName string) error {
+func (t *Tygon) GetSecretAndAccount(hostname string) error {
+	a := Account{}
+
 	conn, err := t.getConnection()
 	if err != nil {
 		return bugLog.Error(err)
@@ -34,14 +37,16 @@ func (t *Tygon) associateAccountWithOrganization(orgName string) error {
 		}
 	}()
 
-	_, err = conn.Exec(
+	if err := conn.QueryRow(
 		t.Context,
-		`SELECT account_id FROM account WHERE organization_name = $1`,
-		orgName,
-		t.Account.ID)
-	if err != nil {
-		return bugLog.Error(err)
+		`SELECT name, secret, account_id FROM account WHERE hostname = $1`,
+		hostname,
+	).Scan(&a.Name, &a.Secret, &a.ID); err != nil {
+		if errors.Is(err, pgx.ErrNoRows) {
+			return bugLog.Error(err)
+		}
 	}
+	t.Account = &a
 
 	return nil
 }

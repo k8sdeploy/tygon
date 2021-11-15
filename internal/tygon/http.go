@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	bugLog "github.com/bugfixes/go-bugfixes/logs"
+	"github.com/google/go-github/v39/github"
 )
 
 func jsonError(w http.ResponseWriter, msg string, errs error) {
@@ -22,16 +23,23 @@ func jsonError(w http.ResponseWriter, msg string, errs error) {
 
 //nolint:gocyclo
 func (t Tygon) ParsePayload(w http.ResponseWriter, r *http.Request) {
-	var unknownPayload interface{}
-	if err := json.NewDecoder(r.Body).Decode(&unknownPayload); err != nil {
+	err := t.GetSecretAndAccount(r.Host)
+	if err != nil {
+		jsonError(w, "host invalid", err)
+		return
+	}
+
+	payload, err := github.ValidatePayload(r, []byte(t.Account.Secret))
+	if err != nil {
 		jsonError(w, "Invalid payload", err)
 		return
 	}
 
-	// if ok, err := t.validateSecret(r.Header.Get("X-Hub-Signature-256"), body); !ok {
-	//   jsonError(w, "Invalid secret", err)
-	//   return
-	// }
+	var unknownPayload interface{}
+	if err := json.Unmarshal(payload, &unknownPayload); err != nil {
+		jsonError(w, "Invalid payload", err)
+		return
+	}
 
 	// test if ping event
 	if ok, parsedPayload := isPingEvent(unknownPayload); ok {
