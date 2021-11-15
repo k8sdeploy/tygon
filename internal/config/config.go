@@ -10,8 +10,8 @@ type Local struct {
 	KeepLocal    bool   `env:"LOCAL_ONLY" envDefault:"false"`
 	Development  bool   `env:"DEVELOPMENT" envDefault:"true"`
 	Port         int    `env:"LOCAL_PORT" envDefault:"3000"`
-	VaultAddress string `env:"VAULT_ADDRESS" envDefault:"http://vault.vault:8200"`
-	RDSAddress   string `env:"RDS_ADDRESS" envDefault:"k8sdeploy.postgres"`
+	VaultAddress string `env:"VAULT_ADDRESS" envDefault:"https://vault.vault:8200"`
+	RDSAddress   string `env:"RDS_HOSTNAME" envDefault:"k8sdeploy.postgres"`
 }
 
 type Config struct {
