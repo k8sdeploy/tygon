@@ -4,10 +4,11 @@ go 1.17
 
 require (
 	github.com/bugfixes/go-bugfixes v0.7.1
-	github.com/caarlos0/env/v6 v6.7.2
+	github.com/caarlos0/env/v6 v6.8.0
 	github.com/go-chi/chi/v5 v5.0.5
 	github.com/google/go-github/v39 v39.2.0
 	github.com/hashicorp/vault/api v1.3.0
+	github.com/jackc/pgx/v4 v4.13.0
 	github.com/keloran/go-probe v0.0.0-20210417224119-539dae99a65e
 	github.com/mitchellh/mapstructure v1.4.2
 )
@@ -46,7 +47,6 @@ require (
 	github.com/jackc/pgproto3/v2 v2.1.1 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20200714003250-2b9c44734f2b // indirect
 	github.com/jackc/pgtype v1.8.1 // indirect
-	github.com/jackc/pgx/v4 v4.13.0 // indirect
 	github.com/mattn/go-colorable v0.1.6 // indirect
 	github.com/mattn/go-isatty v0.0.12 // indirect
 	github.com/mitchellh/copystructure v1.0.0 // indirect
