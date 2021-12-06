@@ -10,7 +10,7 @@ require (
 	github.com/hashicorp/vault/api v1.3.0
 	github.com/jackc/pgx/v4 v4.13.0
 	github.com/keloran/go-probe v0.0.0-20210417224119-539dae99a65e
-	github.com/mitchellh/mapstructure v1.4.2
+	github.com/mitchellh/mapstructure v1.4.3
 )
 
 require (

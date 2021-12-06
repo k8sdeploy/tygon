@@ -13,10 +13,10 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - k8sdeploy.hooks.k8sdeploy.dev
+        - k8sdeploy.k8sdeploy.dev
       secretName: k8sdeploy-tygon-tls
   rules:
-    - host: k8sdeploy.hooks.k8sdeploy.dev
+    - host: k8sdeploy.k8sdeploy.dev
       http:
         paths:
           - path: /
