@@ -31,6 +31,8 @@ func buildDatabase(c *Config) error {
 		Password: val["password"].(string),
 	}
 
+  bugLog.Local().Infof("RDS: %+v", c.RDS)
+
 	return nil
 }
 
