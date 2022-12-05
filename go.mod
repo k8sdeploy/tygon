@@ -3,7 +3,7 @@ module github.com/k8sdeploy/tygon
 go 1.17
 
 require (
-	github.com/bugfixes/go-bugfixes v0.7.1
+	github.com/bugfixes/go-bugfixes v0.8.4
 	github.com/caarlos0/env/v6 v6.8.0
 	github.com/go-chi/chi/v5 v5.0.7
 	github.com/google/go-github/v39 v39.2.0
